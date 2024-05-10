@@ -1,0 +1,12 @@
+/.idea/
+/coverage/
+/node_modules/
+/src/
+.DS_Store
+*.mjs
+*.js
+*.json
+*.yml
+jest.config.ts
+.prettier*
+*.tsbuildinfo

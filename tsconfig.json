@@ -15,7 +15,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"incremental": true
+		"incremental": true,
+		"tsBuildInfoFile": "tsconfig.tsbuildinfo"
 	},
-	"exclude": ["node_modules", "**/node_modules", "**/__tests__", "**/*.tests.{js,jsx,ts,tsx}"],
+	"exclude": ["node_modules", "**/node_modules", "**/__tests__", "**/*.tests.{js,jsx,ts,tsx}", "*.tsbuildinfo"],
+	"include": ["src"]
 }
