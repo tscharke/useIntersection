@@ -6,3 +6,4 @@
 *.d.ts
 jest.config.js
 *.tsbuildinfo
+*.tar.gz
