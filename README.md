@@ -44,7 +44,7 @@ pnpm build
 To create a new release, it is necessary to **set** and **push** a (Git)Tag like:
 
 ```bash
-git tag v1.2.3 && git push origin v1.2.3
+git tag v1.2.3 && git push origin tag v1.2.3
 ```
 
 What is crucial here is that the tag begins with a lowercase `v` followed by a [Semantic Versioning](https://semver.org/) -
