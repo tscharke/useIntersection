@@ -59,6 +59,7 @@ jobs:
           command: c
           files: |
             ./lib
+            ./package.json
           outPath: ./${{ steps.project_info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
 
       - name: Release artifact/project
