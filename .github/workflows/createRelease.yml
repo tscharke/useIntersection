@@ -40,14 +40,6 @@ jobs:
           # Test project
           pnpm test
 
-      - name: Create new artifact
-        uses: a7ul/tar-action@v1.1.0
-        with:
-          command: c
-          files: |
-            ./lib
-          outPath: ./${{ steps.project_info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
-
       - name: Set new version in `package.json`
         uses: jaywcjlove/github-action-package@main
         with:
@@ -59,6 +51,14 @@ jobs:
           message: 'Version ${{ steps.get_version.outputs.TAGGED_VERSION }}'
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
+
+      - name: Create new artifact
+        uses: a7ul/tar-action@v1.1.0
+        with:
+          command: c
+          files: |
+            ./lib
+          outPath: ./${{ steps.project_info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
 
       - name: Release artifact/project
         uses: ncipollo/release-action@v1
