@@ -15,8 +15,6 @@ jobs:
 
       - name: Checkout project sources
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Install all dependencies with PNPM
         uses: pnpm/action-setup@v4
@@ -46,15 +44,17 @@ jobs:
       - name: Set new version in `package.json`
         uses: MYXOMOPX/modify-pkg-json@master
         with:
+          target: ./package.json
           action: "set_version"
           argument: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
 
+
       - name: Commit changes of `package.json`
-        uses: EndBug/add-and-commit@v9
+        uses: Andro999b/push@v1.3
         with:
-          message: 'Change version to ${{ steps.get_version.outputs.TAGGED_VERSION }}'
-          add: './package.json'
-          fetch: false
+          message: 'Vversion ${{ steps.get_version.outputs.TAGGED_VERSION }}'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'features/release'
 
       - name: Release artifact/project
         uses: ncipollo/release-action@v1
