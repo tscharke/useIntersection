@@ -50,6 +50,7 @@ jobs:
         with:
           message: 'Version ${{ steps.get_version.outputs.TAGGED_VERSION }}'
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'main'
           force: true
 
       - name: Create new artifact
