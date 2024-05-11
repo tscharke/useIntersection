@@ -57,6 +57,7 @@ jobs:
           message: 'Vversion ${{ steps.get_version.outputs.TAGGED_VERSION }}'
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: 'features/release'
+          force: true
 
       - name: Release artifact/project
         uses: ncipollo/release-action@v1
