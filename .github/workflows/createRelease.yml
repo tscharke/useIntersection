@@ -56,7 +56,7 @@ jobs:
       - name: Commit changes of `package.json`
         uses: Andro999b/push@v1.3
         with:
-          message: 'Vversion ${{ steps.get_version.outputs.TAGGED_VERSION }}'
+          message: 'Version ${{ steps.get_version.outputs.TAGGED_VERSION }}'
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: 'features/release'
           force: true
