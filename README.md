@@ -1,3 +1,5 @@
+![Create Release Workflow](https://github.com/tscharke/useIntersection/actions/workflows/createRelease.yml/badge.svg?push=tags) ![Release](https://img.shields.io/github/v/release/tscharke/useIntersection?display_name=release&label=Release)
+
 # useIntersection hook
 
 This project is a custom hook for React that uses the IntersectionObserver API to observe a DOM element.
