@@ -16,6 +16,7 @@ jobs:
       - name: Checkout project sources
         uses: actions/checkout@v4
         with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Install all dependencies with PNPM
@@ -46,6 +47,7 @@ jobs:
       - name: Set new version in `package.json`
         uses: MYXOMOPX/modify-pkg-json@master
         with:
+          target: ./package.json
           action: "set_version"
           argument: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
 
