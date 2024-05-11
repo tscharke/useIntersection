@@ -19,6 +19,10 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
 
+
+      - name: Parse name of project
+        uses: jaywcjlove/github-action-package@main
+
       - name: Install all dependencies with PNPM
         uses: pnpm/action-setup@v4
         with:
@@ -42,14 +46,12 @@ jobs:
           command: c
           files: |
             ./lib
-          outPath: ./useintersection-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
+          outPath: ./${{ steps.info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
 
       - name: Set new version in `package.json`
-        uses: MYXOMOPX/modify-pkg-json@master
+        uses: jaywcjlove/github-action-package@main
         with:
-          target: ./package.json
-          action: "set_version"
-          argument: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
+          version: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
 
       - name: Commit changes of `package.json`
         uses: Andro999b/push@v1.3
@@ -63,5 +65,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: ./useintersection-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
+          artifacts: ./${{ steps.info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
           name: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
