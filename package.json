@@ -1,11 +1,12 @@
 {
   "name": "useintersection",
-  "version": "1.0.0",
+  "version": "1.3.3",
   "description": "hook to use intersection observer",
-  "main": "index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "rm -r lib && tsc",
+    "build": "rm -r lib && mkdir lib && rm *.tsbuildinfo && tsc",
     "format": "prettier --write src/*",
     "lint": "eslint src/*"
   },
