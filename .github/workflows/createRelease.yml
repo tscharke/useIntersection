@@ -1,0 +1,55 @@
+name: Create a new release
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  create-and-build-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Get the version out of the tag
+        id: get_version
+        run: echo "TAGGED_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Checkout project sources
+        uses: actions/checkout@v4
+
+      - name: Install all dependencies with PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15
+          run_install: true
+
+      - name: Build and test the project
+        run: |
+          # The first two command are required to avoid errors while the NPM-script are running.
+          # TODO: Improve the NPM-script
+          mkdir lib
+          touch tsconfig.*.tsbuildinfo
+          # Build project
+          pnpm run build
+          # Test project
+          pnpm test
+
+      - name: Create new artifact
+        uses: a7ul/tar-action@v1.1.0
+        with:
+          command: c
+          files: |
+            ./lib
+          outPath: ./useintersection-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
+
+      - name: Set new version in `package.json`
+        uses: MYXOMOPX/modify-pkg-json@master
+        with:
+          target: ./package.json
+          action: "set_version"
+          argument: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
+
+      - name: Release artifact/project
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: ./useintersection-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
