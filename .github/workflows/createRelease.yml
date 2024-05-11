@@ -19,8 +19,8 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
 
-
       - name: Parse name of project
+        id: project_info
         uses: jaywcjlove/github-action-package@main
 
       - name: Install all dependencies with PNPM
@@ -46,7 +46,7 @@ jobs:
           command: c
           files: |
             ./lib
-          outPath: ./${{ steps.info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
+          outPath: ./${{ steps.project_info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
 
       - name: Set new version in `package.json`
         uses: jaywcjlove/github-action-package@main
@@ -65,5 +65,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: ./${{ steps.info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
+          artifacts: ./${{ steps.project_info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
           name: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
