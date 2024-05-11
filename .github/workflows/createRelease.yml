@@ -53,3 +53,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: ./useintersection-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
+          name: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
